@@ -23,8 +23,10 @@ public class StudentController {
     }
 
     @GetMapping
-    public Collection<Student> getAll() {
-        return studentService.getAll();
+    public Collection<Student> getAll(@RequestParam(value = "age", required = false) Integer age) {
+        return Optional.ofNullable(age)
+                .map(studentService::getAllByAge)
+                .orElseGet(studentService::getAll);
     }
 
     @PostMapping

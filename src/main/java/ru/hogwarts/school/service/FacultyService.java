@@ -5,6 +5,7 @@ import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class FacultyService {
@@ -38,4 +39,9 @@ public class FacultyService {
         return Optional.ofNullable(faculties.remove(id));
     }
 
+    public Collection<Faculty> getAllByColor(String color) {
+        return faculties.values().stream()
+                .filter(faculty -> faculty.getColor().equals(color))
+                .collect(Collectors.toList());
+    }
 }
